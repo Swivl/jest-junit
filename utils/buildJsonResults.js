@@ -24,7 +24,7 @@ module.exports = function (report, appDirectory, options) {
   // Iterate through outer testResults (test suites)
   report.testResults.forEach((suite) => {
     // Skip empty test suites
-    if (suite.testResults.length <= 0) {
+    if (suite.testResults.length <= 0 && !suite.testExecError) {
       return;
     }
 
@@ -32,11 +32,12 @@ module.exports = function (report, appDirectory, options) {
     let testSuite = {
       'testsuite': [{
         _attr: {
-          name: options.usePathForSuiteName === "true" ?
+          // test suite name not available when exec error occurs
+          name: options.usePathForSuiteName === "true" || report.numRuntimeErrorTestSuites ?
               suite.testFilePath.replace(appDirectory, '') :
               suite.testResults[0].ancestorTitles[0],
           tests: suite.numFailingTests + suite.numPassingTests + suite.numPendingTests,
-          errors: 0,  // not supported
+          errors: suite.testExecError ? 1 : 0,
           failures: suite.numFailingTests,
           skipped: suite.numPendingTests,
           timestamp: (new Date(suite.perfStats.start)).toISOString().slice(0, -5),
@@ -44,6 +45,18 @@ module.exports = function (report, appDirectory, options) {
         }
       }]
     };
+
+
+
+    if (suite.testExecError) {
+      testSuite.testsuite.push({
+        'error': suite.failureMessage
+      });
+
+      jsonResults.testsuites.push(testSuite);
+
+      return;
+    }
 
     // Iterate through test cases
     suite.testResults.forEach((tc) => {

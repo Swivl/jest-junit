@@ -1,0 +1,48 @@
+{
+  "numFailedTestSuites": 1,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 0,
+  "numPassedTests": 0,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 1,
+  "numTotalTestSuites": 1,
+  "numTotalTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1500447011739,
+  "success": false,
+  "testResults": [
+    {
+      "console": null,
+      "failureMessage": "window is not defined",
+      "numFailingTests": 0,
+      "numPassingTests": 0,
+      "numPendingTests": 0,
+      "perfStats": { "end": 0, "start": 0 },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0 },
+      "testExecError": "\"ReferenceError\": window is not defined at Object.<anonymous> (/some/project/dir/index.js) at Runtime._execModule (/some/project/dir/index.js)'",
+      "testFilePath": "/some/project/dir/__tests__/someModule.test.js",
+      "testResults": []
+    }
+  ],
+  "wasInterrupted": false
+}

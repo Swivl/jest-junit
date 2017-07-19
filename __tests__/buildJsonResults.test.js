@@ -47,6 +47,17 @@ describe('buildJsonResults', () => {
 
     // Make sure no escape codes are there that exist in the mock
     expect(failureMsg.includes('\u001b')).toBe(false);
+  });
 
+  it('should parse execution error messages for execution failed tests', () => {
+    const execErrorTestsReport = require('../__mocks__/exec-error-tests.json');
+    const jsonResults = buildJsonResults(execErrorTestsReport, '/path/to/test', constants.DEFAULT_OPTIONS);
+
+    const testSuite = jsonResults.testsuites[1];
+    const errorMsg = testSuite.testsuite[1].error;
+    const errorCount = testSuite.testsuite[0]._attr.errors;
+
+    expect(errorMsg).toBe(execErrorTestsReport.testResults[0].failureMessage);
+    expect(errorCount).toBe(execErrorTestsReport.numRuntimeErrorTestSuites);
   });
 });
